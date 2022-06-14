@@ -1,4 +1,4 @@
-# Working with Go Confluent Kafka library on Apple Silicone
+# Working with Go Confluent Kafka library on (arm64)Apple Silicone
 
 ## This is a step by step approach to running, developing and working with the Golang Confluent Kafka library on an ARM based device/Apple Silicone(M1) using just Docker.
 <br />
