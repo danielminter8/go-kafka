@@ -11,7 +11,7 @@ Confluent Kafka has dependencies that currently does not support based devices, 
 
 This approach takes advantage of Docker multi-arch builds or also know as Docker Buildx and Docker Desktop emulation. Currently if you build an docker image, docker builds the image for the host platform. So if you building the image on a M1 powered macbook, it would build an image for arm64 platform so that it would be able to run on the device it is being built on without any problems. 
 
-So the solution to being able to run an amd64 dependent libraries in a Go APP/API on a arm based system is to develop and run the Go APP/API within Docker and specify the platform in the DockerFile and run that image through Docker Desktop emulation.
+So the solution to being able to run an amd64 dependent libraries in a Go APP/API on a arm based system is to develop and run the Go APP/API within Docker and specify the platform in the DockerFile and run that image through Docker Desktop emulation which docker automatically does already.
 <br />
 <br />
 
