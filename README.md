@@ -11,7 +11,7 @@ Confluent Kafka has dependencies that currently does not support based devices, 
 
 This approach takes advantage of Docker multi-arch builds or also know as Docker Buildx and Docker Desktop emulation. Currently if you build an docker image, docker builds the image for the host platform. So if you building the image on a M1 powered macbook, it would build an image for arm64 platform so that it would be able to run on the device it is being built on without any problems. 
 
-So the solution to being able to run an amd64 dependent libraries in a Go APP/API on a arm based system is to specify the platform in the DockerFile and build it, thanks to there multi-arch image support that allows us to easier 'develop containers on, and for Arm servers and devices' and run that image through Docker Desktop emulation.
+So the solution to being able to run an amd64 dependent libraries in a Go APP/API on a arm based system is to develop and run the Go APP/API within Docker and specify the platform in the DockerFile and run that image through Docker Desktop emulation.
 <br />
 <br />
 
@@ -37,22 +37,27 @@ Note: This isn't guaranteed to be stable, but it worked out for me : )
 
 Clone and navigate to the root of this repo in your terminal.
 
+- Create docker bridge network
+```
+docker network create go-confluent-network
+```
+
 - Run Confluent Kafka services
 ```
-docker-compose up -d
+docker-compose up
 ```
 
 - Run Basic Go Kafka Producer API example
 ```
-cd ./producer && docker-compose up -d
+cd ./producer && docker-compose up
 ```
 
 - Run Basic Go Kafka Consumer API example
 ```
-cd ../consumer && docker-compose up -d
+cd ../consumer && docker-compose up
 ```
 or
-- Run all the above via the run.sh script
+- Run all the above command using the run.sh script
 ```
 sh run.sh
 ```
@@ -62,7 +67,7 @@ You will also see that the Consumer/Producer DockerFile EntryPoint has CompileDa
 ## Consumer and Producer API usage
 
 - (POST) http://localhost:8090/api/producer/:topic/:data ~ {topic} - will create topic if doesn't exist already ~ {data} - no schema set so add any data.
-- (GET) http://localhost:8091/api/consumer/:topic ~ using sockets to live stream kafka data straight client as soon as it comes in (so that you can see it as soon as its produced/sent)
+- (GET) http://localhost:8091/api/consumer/:topic ~ returns consumed data for the specified topic
 
 ### Confluent Control Center
 - Is accessible via  ~ http://localhost:9021
