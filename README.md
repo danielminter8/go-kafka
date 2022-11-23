@@ -1,19 +1,4 @@
-# Working with Go Confluent Kafka library on (arm64)Apple Silicone
-
-### This is a step by step approach to running, developing and working with the Golang Confluent Kafka library on an ARM based device/Apple Silicone(M1) using just Docker.
-
-### Some context:
-
-Confluent Kafka has dependencies that currently does not support based devices, therefore not allowing you run Confluent Kafka. This guides shows you a possible solution to being able to run and develope on your arm device.
-
-### How is this possible?
-
-This approach takes advantage of Docker multi-arch builds or also know as Docker Buildx and Docker Desktop emulation. Currently if you build an docker image, docker builds the image for the host platform. So if you building the image on a M1 powered macbook, it would build an image for arm64 platform so that it would be able to run on the device it is being built on without any problems. 
-
-The solution to being able to run an amd64 dependent library in a Go APP/API on a arm based system is to develop and run the Go APP/API within Docker and specify the platform in the DockerFile and run that image through Docker Desktop emulation which docker will automatically do.
-<br />
-<br />
-
+# Go Kafka
 
 Dockerfile example with specified platform:
 ```
@@ -24,8 +9,6 @@ WORKDIR /app
 RUN go mod download
 ENTRYPOINT go build -o main .
 ```
-
-Note: This isn't guaranteed to be stable, but it worked out for me : )
 
 ## Prerequisites
 
@@ -78,6 +61,3 @@ You will also see that the Consumer/Producer DockerFile EntryPoint has CompileDa
 [Confluent Kafka Docker](https://docs.confluent.io/platform/current/quickstart/ce-docker-quickstart.html)<br />
 [Go Compile Daemon](https://github.com/githubnemo/CompileDaemon)
 
-## More
-
-This README is not perfect, so if you find a mistake don't hesitate to make changes and create a pull request
